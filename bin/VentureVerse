@@ -1,1 +1,5 @@
 #!/usr/bin/env ruby
+
+require './lib/environment'
+
+VentureVerse::CLI.new.call
