@@ -3,6 +3,7 @@ require 'pry'
 class VentureVerse::CLI
 
   def call
+    Scraper.scrape_character_page
     main_menu
   end
 
@@ -11,7 +12,7 @@ class VentureVerse::CLI
     input = gets.strip.downcase
     case input
     when "character"
-      list_characters
+      character_menu
     when "episode"
       list_episodes
     when "voice-actor"
@@ -27,24 +28,22 @@ class VentureVerse::CLI
       character = input
       character_details(character)
       # Should return instace of character with hash of info scraped from web that matches input
+    end
   end
-
-  def list_character_names
-    puts "Enter the number of a character to get more info."
-    list_characters
-    input = gets.strip.to_i
-    when (1..Character.all.length).include?(input)
-      character = Character.all[input - 1]
-      character_details(character)
-    else
-      invalid_character
-      list_characters
-  end
-
-  def invalid_character
-    puts "Who dat?"
-    list_characters
-  end
-
-
 end
+
+
+  # def list_character_names
+  #   puts "Enter the number of a character to get more info."
+  #   list_characters
+  #   input = gets.strip.to_i
+  #   if (1..Character.all.length).include?(input)
+  #     character = Character.all[input - 1]
+  #     character_details(character)
+  #   else
+  #     invalid_character
+  #     list_characters
+  #   end
+  # end
+
+# end

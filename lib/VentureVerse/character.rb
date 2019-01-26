@@ -1,4 +1,4 @@
-class character
+class Character
 
   attr_accessor :name, :episodes, :voice_actor
 
@@ -7,7 +7,7 @@ class character
   def initialize(name, url)
     @name = name
     @url = url
-    self << @@all
+    @@all << self
   end
 
   def self.all
