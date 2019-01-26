@@ -9,11 +9,11 @@ class Scraper
     page = Nokogiri::HTML(html)
 
 
-    char_urls = page.css("li.category-page__member a")
-    char_list = char_urls.map do  |element|
-      url = element unless element.text.include?('Category')
+    char_page = page.css("li.category-page__member a")
+    char_list = char_page.map do  |element|
+      url = element.attr('href') unless element.text.include?('Category')
       name = element.text unless element.text.include?('Category')
-      Character.new(name, url)
+      character = Character.new(name, url)
       binding.pry
     end
       char_list.compact.each.with_index(1) do |char, i|
