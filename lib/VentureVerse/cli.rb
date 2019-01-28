@@ -14,7 +14,7 @@ class VentureVerse::CLI
     when "character"
       character_menu
     when "episode"
-      list_episodes
+      Scraper.list_episodes
     when "voice-actor"
       list_voice_actors
     end
@@ -30,6 +30,7 @@ class VentureVerse::CLI
       # Should return instace of character with hash of info scraped from web that matches input
     end
   end
+
 end
 
 
