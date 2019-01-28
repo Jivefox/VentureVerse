@@ -13,11 +13,24 @@ class Scraper
     char_list = char_page.map do  |element|
       url = element.attr('href') unless element.text.include?('Category')
       name = element.text unless element.text.include?('Category')
-      character = Character.new(name, url)
-      binding.pry
+      character = Character.new_from_vb(
     end
       char_list.compact.each.with_index(1) do |char, i|
       puts "#{i}. #{char}"
     end
+  end
+
+  def self.scrape_character_details
+
+  end
+
+  def list_episodes
+    html = open("https://venturebrothers.fandom.com/wiki/Episodes#Songs")
+    page = Nokogiri::HTML(html)
+
+    objects = page.css('ul li i')
+    episodes = objects.map {|object| object.text}
+    episodes.each_with_index(1) {|episode, i| puts "#{i}. #{episode}"}
+
   end
 end
