@@ -1,6 +1,6 @@
 class Episode
 
-  attr_accessor :name, :characters, :voice_actors
+  attr_accessor :name, :characters, :voice_actors, :url
 
   @@all = []
 

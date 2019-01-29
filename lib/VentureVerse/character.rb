@@ -2,7 +2,7 @@ require 'pry'
 
 class Character
 
-  attr_accessor :name, :episodes, :voice_actor, :first_appearance
+  attr_accessor :name, :episodes, :voice_actor, :first_appearance, :url
 
   @@all = []
 
@@ -15,11 +15,10 @@ class Character
     @@all
   end
 
-  def self.new_from_vb
+  def self.new_from_vb(url)
     self.new.tap do |character|
-      Scraper.scrape_character(character).each do |k,v|
+      Scraper.scrape_character(url).each do |k,v|
         character.send("#{k}=", v)
-        binding.pry
         @@all << self
       end
     end

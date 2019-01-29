@@ -1,6 +1,6 @@
 class VoiceActor
 
-  attr_accessor :name, :characters, :episodes
+  attr_accessor :name, :characters, :episodes, :url
 
   @@all = []
 
