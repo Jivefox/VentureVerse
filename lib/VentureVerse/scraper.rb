@@ -20,7 +20,7 @@ class Scraper
       urls = characters.map {|element| element.attr('href') unless element.text.include?('Category')}.compact #Array of urls
       urls.each {|url| character_hash[:url] = url} #I want to iterate over the array of urls and assign each url to a value of :url in character_hash
       names.each {|name| character_hash[:name] = name} # Same here but for names
-      character_hash #It seems to be working, but only for the last instance of url and name.  I imagine it is a problem with .each, but I don't know what to use instead.
+      character_hash #It seems to be working, but only for the last instance of url and name.  I imagine it is a problem with .each, but I don't know what to use instead.  When I change it to .map, I get the same return.
       binding.pry
       # Character.all << self.scrape_character_directory
     end
