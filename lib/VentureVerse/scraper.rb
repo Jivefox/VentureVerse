@@ -2,12 +2,11 @@ require 'pry'
 
 class Scraper
 
+  CHARACTER_PAGE = "https://venturebrothers.fandom.com + character.url"
 
-
-  def self.scrape_character_page
+  def self.get_characters
     html = open("https://venturebrothers.fandom.com/Category:Characters")
     page = Nokogiri::HTML(html)
-
 
     char_page = page.css("li.category-page__member a")
     char_list = char_page.map do  |element|
@@ -20,8 +19,15 @@ class Scraper
     end
   end
 
-  def self.scrape_character_details
-
+  def self.scrape_character
+    html = open("https://venturebrothers.fandom.com/Category:Characters")
+    page = Nokogiri::HTML(html)
+    character = {}
+    character[:name] = page.css('h1.page-header__title').text
+    character[:episodes] = page.css('ul li i').map {|object| object.text}
+    character[:first_appearance] =  page.css('tr td a').map {|object| object.attr('title')}[2]
+    character[:voiced_by] = page.css('tr td a').map {|object| object.attr('title')}[3].gsub("wikipedia:", "")
+    character
   end
 
   def self.list_episodes

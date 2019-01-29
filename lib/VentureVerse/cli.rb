@@ -26,8 +26,7 @@ class VentureVerse::CLI
     case input
     when Character.all.include?(input)
       character = input
-      character_details(character)
-      # Should return instace of character with hash of info scraped from web that matches input
+      Scraper.scrape_character
     end
   end
 
