@@ -16,14 +16,13 @@ class Scraper
 
     character_hash = {}
       characters = page.css("li.category-page__member a")
-      names = characters.map {|element| element.text unless element.text.include?('Category')}.compact
-      urls = characters.map {|element| element.attr('href') unless element.text.include?('Category')}.compact
-      # character_hash[:url] = urls.each {|url| url}
-      urls.each {|url| character_hash[:url] = url}
-      names.each {|name| character_hash[:name] = name}
-      character_hash
+      names = characters.map {|element| element.text unless element.text.include?('Category')}.compact #Array of names
+      urls = characters.map {|element| element.attr('href') unless element.text.include?('Category')}.compact #Array of urls
+      urls.each {|url| character_hash[:url] = url} #I want to iterate over the array of urls and assign each url to a value of :url in character_hash
+      names.each {|name| character_hash[:name] = name} # Same here but for names
+      character_hash #It seems to be working, but only for the last instance of url and name.  I imagine it is a problem with .each, but I don't know what to use instead.
       binding.pry
-      # Character.all << self.scrape_character(url)
+      # Character.all << self.scrape_character_directory
     end
 
   # def self.list_characters
