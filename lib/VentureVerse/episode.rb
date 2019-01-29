@@ -1,6 +1,6 @@
 class Episodes
 
-  attr_accessor :name, :Characters
+  attr_accessor :name, :characters
 
   @@all = []
 

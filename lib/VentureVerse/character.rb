@@ -1,6 +1,6 @@
 class Character
 
-  attr_accessor :name, :episodes, :voice_actor
+  attr_accessor :name, :episodes, :voice_actor, :first_appearance
 
   @@all = []
 
@@ -21,15 +21,10 @@ class Character
   def self.new_from_vb(url)
     html = open("https://venturebrothers.fandom.com/Category:Characters")
     page = Nokogiri::HTML(html)
-    char.name = page.css('h1.page-header__title').text
-    char.first_appearance =  page.css("")
-    char.voiced by = page.css("")
-    char.aliases = page.css("")
-    char.occupation = page.css("")
-    char.relatives = page.css("")
-    char.notable_characteristics = page.css("")
-    char.notable_alliances = page.css("")
-    char.enemies = page.css("")
+    character.name = page.css('h1.page-header__title').text
+    character.episodes = page.css('ul li i').map {|object| object.text}
+    character.first_appearance =  page.css('tr td a').map {|object| object.attr('title')}[2]
+    character.voiced by = page.css('tr td a').map {|object| object.attr('title')}[3].gsub("wikipedia:", "")
     @@all << self
   end
 
