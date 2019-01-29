@@ -29,9 +29,6 @@ class Scraper
   #
   #   character.url = page.css("li.category-page_member a").map {|element| element.attr('href') unless element.text.include?('Category')}
   # end
-  def get_page(character)
-    Nokogiri::HTML(open(CHARACTERS_URL + character.url))
-  end
 
   def self.scrape_character
     html = open(CHARACTERS_URL)

@@ -4,18 +4,23 @@ class VentureVerse::CLI
 
   def call
     main_menu
+    adios
   end
 
   def main_menu
-    puts "Would you like to better understand the involuted universe of the Venture Bros. via character, episode or voice actor?"
-    input = gets.strip.downcase
-    case input
-    when "character"
-      character_menu
-    when "episode"
-      episode_menu
-    when "voice actor"
-      list_voice_actors
+    input = nil
+    while input != "exit"
+      puts "Would you like to explore the involuted universe of the Venture Bros. via character, episode or voice actor?"
+      input = gets.strip.downcase
+      if input == "character"
+        character_menu
+      elsif input == "episode"
+        episode_menu
+      elsif input == "voice actor"
+        list_voice_actors
+      else
+        puts "Spaghetti!!  Sorry, if you'd like a valid response, please enter a valid command."
+      end
     end
   end
 
@@ -59,6 +64,9 @@ class VentureVerse::CLI
     episode_menu
   end
 
+  def adios
+    puts "Ta-ta.  And Go Team Venture!"
+  end
 end
 
 

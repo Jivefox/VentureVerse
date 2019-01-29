@@ -4,8 +4,7 @@ class Episode
 
   @@all = []
 
-  def initialize(name)
-    @name = name
+  def initialize
     @@all << self
   end
 
@@ -15,5 +14,9 @@ class Episode
 
   def self.new_from_vb
 
+  end
+
+  def self.list_episodes
+    self.all.each.with_index(1) {|episode| puts "#{i}. #{episode[:name]}"}
   end
 end
