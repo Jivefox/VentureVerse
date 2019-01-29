@@ -20,7 +20,7 @@ class VentureVerse::CLI
   end
 
   def character_menu
-    Scraper.list_characters
+    Character.list_characters
     puts "Enter the number of the character with whom you would like to better familiarize yourself.  Type 'main menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
     input = gets.strip
 

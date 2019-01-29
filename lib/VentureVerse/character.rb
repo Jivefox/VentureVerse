@@ -9,7 +9,6 @@ class Character
   def initialize(name, url)
     @name = name
     @url = url
-    @@all << self
   end
 
   def self.all
@@ -20,12 +19,14 @@ class Character
     self.new.tap do |character|
       Scraper.scrape_character(character).each do |k,v|
         character.send("#{k}=", v)
+        binding.pry
+        @@all << self
       end
-    @@all << self
     end
   end
 
-  def list_characters
-    self.all.each.with_index(1) {|character, i| puts "#{i}. #{character.name}"}
+  def self.list_characters
+    self.all.each.with_index(1) {|character, i| puts "#{i}. #{character[:name]}"}
+    # self.all.each.with_index(1) {|character, i| puts "#{i}. #{character.name}"}
   end
 end

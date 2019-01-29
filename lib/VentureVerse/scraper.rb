@@ -9,18 +9,18 @@ class Scraper
     page = Nokogirl::HTML(html)
 
     characters = page.css("li.category-page_member a")
-      name = characters.each {|element| element.text unless element.text.include?('Category')}.compact
+      # name = characters.each {|element| element.text unless element.text.include?('Category')}.compact
       url = characters.each {|element| element.attr('href') unless element.text.include?('Category')}
-      Character.new(name, url)
+      Character.all << self.scrape_character(url)
     end
 
-  def self.list_characters
-    html = open(CHARACTERS_URL)
-    page = Nokogiri::HTML(html)
-
-    characters = page.css("li.category-page__member a").map {|element| element.text unless element.text.include?('Category')}.compact
-      characters.each.with_index(1) {|char, i| puts "#{i}. #{char}"}
-  end
+  # def self.list_characters
+  #   html = open(CHARACTERS_URL)
+  #   page = Nokogiri::HTML(html)
+  #
+  #   characters = page.css("li.category-page__member a").map {|element| element.text unless element.text.include?('Category')}.compact
+  #     characters.each.with_index(1) {|char, i| puts "#{i}. #{char}"}
+  # end
   #
   # def self.get_character_urls
   #   html = open(CHARACTERS_URL)
@@ -29,9 +29,8 @@ class Scraper
   #   character.url = page.css("li.category-page_member a").map {|element| element.attr('href') unless element.text.include?('Category')}
   # end
 
-  def self.scrape_character(character)
-    html = open("CHARACTERS_URL + character.url")
-    page = Nokogiri::HTML(html)
+  def self.scrape_character(url)
+    page = Nokogiri::HTML(open(url))
     character = {}
     character[:name] = page.css('h1.page-header__title').text
     character[:episodes] = page.css('ul li i').map {|object| object.text}
