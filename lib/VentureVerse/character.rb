@@ -18,7 +18,7 @@ class Character
 
   def self.new_from_vb
     self.new.tap do |character|
-      Scraper.scrape_character.each do |k,v|
+      Scraper.scrape_character(character).each do |k,v|
         character.send("#{k}=", v)
       end
     @@all << self

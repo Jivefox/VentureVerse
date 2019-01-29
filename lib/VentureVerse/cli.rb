@@ -3,7 +3,6 @@ require 'pry'
 class VentureVerse::CLI
 
   def call
-    Scraper.scrape_character
     main_menu
   end
 
@@ -21,7 +20,7 @@ class VentureVerse::CLI
   end
 
   def character_menu
-    list_characters
+    Scraper.list_characters
     puts "Enter the number of the character with whom you would like to better familiarize yourself.  Type 'main menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
     input = gets.strip.to_i
 

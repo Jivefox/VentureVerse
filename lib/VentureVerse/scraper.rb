@@ -2,18 +2,34 @@ require 'pry'
 
 class Scraper
 
-  CHARACTERS_URL = "https://venturebrothers.fandom.com"
+  CHARACTERS_URL = "https://venturebrothers.fandom.com/Category:Characters"
+
+  def self.scrape_character_directory
+    html = open(CHARACTERS_URL)
+    page = Nokogirl::HTML(html)
+
+    characters = page.css("li.category-page_member a")
+      name = characters.each {|element| element.text unless element.text.include?('Category')}.compact
+      url = characters.each {|element| element.attr('href') unless element.text.include?('Category')}
+      Character.new(name, url)
+    end
 
   def self.list_characters
-    html = open("https://venturebrothers.fandom.com/Category:Characters")
+    html = open(CHARACTERS_URL)
     page = Nokogiri::HTML(html)
 
     characters = page.css("li.category-page__member a").map {|element| element.text unless element.text.include?('Category')}.compact
-      # character.url = element.attr('href') unless element.text.include?('Category') make get_character_page method for this
       characters.each.with_index(1) {|char, i| puts "#{i}. #{char}"}
   end
+  #
+  # def self.get_character_urls
+  #   html = open(CHARACTERS_URL)
+  #   page = Nokogiri::HTML(html)
+  #
+  #   character.url = page.css("li.category-page_member a").map {|element| element.attr('href') unless element.text.include?('Category')}
+  # end
 
-  def self.scrape_character
+  def self.scrape_character(character)
     html = open("CHARACTERS_URL + character.url")
     page = Nokogiri::HTML(html)
     character = {}
