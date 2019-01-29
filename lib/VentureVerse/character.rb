@@ -20,7 +20,6 @@ class Character
     self.new.tap do |character|
       Scraper.scrape_character.each do |k,v|
         character.send("#{k}=", v)
-        binding.pry
       end
     @@all << self
     end
