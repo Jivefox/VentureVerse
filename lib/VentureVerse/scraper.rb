@@ -8,22 +8,34 @@ class Scraper
     html = open(CHARACTERS_URL)
     page = Nokogiri::HTML(html)
 
-    # character_hash = {}
-    # characters = page.css("li.category-page__member a")
-    # character_hash[:name] = characters.each {|character| character.text unless character.text.include?('Category')}.compact
-    # character_hash[:url] = characters.map {|character| character.attr('href') unless character.text.include?('Category')}.compact
-    # character_hash
+    characters = page.css("li.category-page__member a")
 
-    character_hash = {}
-      characters = page.css("li.category-page__member a")
-      names = characters.map {|element| element.text unless element.text.include?('Category')}.compact #Array of names
-      urls = characters.map {|element| element.attr('href') unless element.text.include?('Category')}.compact #Array of urls
-      urls.each {|url| character_hash[:url] = url} #I want to iterate over the array of urls and assign each url to a value of :url in character_hash
-      names.each {|name| character_hash[:name] = name} # Same here but for names
-      character_hash #It seems to be working, but only for the last instance of url and name.  I imagine it is a problem with .each, but I don't know what to use instead.  When I change it to .map, I get the same return.
-      binding.pry
-      # Character.all << self.scrape_character_directory
+    characters.map do |nodeset|
+      character_hash = {}
+      unless nodeset.text.include?('Category')
+        character_hash[:name] = nodeset.text
+        character_hash[:url] = nodeset.attr('href')
+        Character.all << character_hash
+      end
     end
+    binding.pry
+  end
+
+
+
+      # characters = page.css("li.category-page__member a")
+      # # names = characters.map {|element| element.text unless element.text.include?('Category')}.compact #Array of names
+      # # urls = characters.map {|element| element.attr('href') unless element.text.include?('Category')}.compact #Array of urls
+      #
+      # elements = characters.each {|element| element}
+      # url = elements.attr('href') unless elements.text.include?('Category')
+      # name = elements.text unless elements.text.include?('Category')
+      # Character.new(name, url)
+      # # urls.each {|url| character_hash[:url] = url[2]} #I want to iterate over the array of urls and assign each url to a value of :url in character_hash
+      # # names.each {|name| character_hash[:name] = name[2]} # Same here but for names
+      #  #It seems to be working, but only for the last instance of url and name.  I imagine it is a problem with .each, but I don't know what to use instead.  When I change it to .map, I get the same return.
+      # Character.all
+      # binding.pry
 
   # def self.list_characters
   #   html = open(CHARACTERS_URL)
