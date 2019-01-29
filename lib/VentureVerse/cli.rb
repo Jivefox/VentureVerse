@@ -26,7 +26,7 @@ class VentureVerse::CLI
 
     if (1..Character.all.length).include?(input)
       character = Character.all[input.to_i - 1]
-      Scraper.scrape_character(character)
+      Scraper.scrape_character
     elsif "main menu"
       main_menu
     else
