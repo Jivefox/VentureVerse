@@ -1,26 +1,26 @@
-require 'pry'
-
 class VentureVerse::CLI
 
   def call
-    character_menu
-    # main_menu
+    main_menu
     adios
   end
 
   def main_menu
-    input = nil
-    while input != "exit"
       puts "Would you like to explore the involuted universe of the Venture Bros. via character, episode or voice actor?"
-      input = gets.strip.downcase
-      if input == "character"
+      get_input
+      while input != "exit"
+
+      case input
+      when input == "character"
         character_menu
-      elsif input == "episode"
+      when input == "episode"
         episode_menu
-      elsif input == "voice actor"
+      when input == "voice actor"
         list_voice_actors
+      when input == "exit"
+        adios
       else
-        puts "Spaghetti!!  Sorry, if you'd like a valid response, please enter a valid command."
+        puts "Spanikopita!!  Sorry. If you'd like a valid response, please enter a valid command."
       end
     end
   end
@@ -29,13 +29,15 @@ class VentureVerse::CLI
     Scraper.scrape_character_directory
     Character.list_characters
     puts "Enter the number of the character with whom you would like to better familiarize yourself.  Type 'main menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
-    input = gets.strip
+    get_input
 
-    if (1..Character.all.length).include?(input)
+    case input
+    when (1..Character.all.length).include?(input)
       character = Character.all[input.to_i - 1]
-      Scraper.scrape_character
-    elsif "main menu"
+    when "main menu"
       main_menu
+    when "exit"
+      adios
     else
       invalid_character
     end
@@ -54,6 +56,10 @@ class VentureVerse::CLI
     else
       invalid_episode
     end
+  end
+
+  def get_input
+    input = gets.strip.downcase
   end
 
   def invalid_character

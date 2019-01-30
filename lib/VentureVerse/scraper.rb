@@ -18,7 +18,6 @@ class Scraper
         Character.all << character_hash
       end
     end
-    binding.pry
   end
 
 
