@@ -7,21 +7,18 @@ class VentureVerse::CLI
 
   def main_menu
       puts "Would you like to explore the involuted universe of the Venture Bros. via character, episode or voice actor?"
-      get_input
-      while input != "exit"
-
+      input = gets.strip.downcase
       case input
-      when input == "character"
+      when "character"
         character_menu
-      when input == "episode"
+      when "episode"
         episode_menu
-      when input == "voice actor"
+      when "voice actor"
         list_voice_actors
-      when input == "exit"
+      when "exit"
         adios
       else
         puts "Spanikopita!!  Sorry. If you'd like a valid response, please enter a valid command."
-      end
     end
   end
 
@@ -29,10 +26,10 @@ class VentureVerse::CLI
     Scraper.scrape_character_directory
     Character.list_characters
     puts "Enter the number of the character with whom you would like to better familiarize yourself.  Type 'main menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
-    get_input
+    input = gets.strip
 
     case input
-    when (1..Character.all.length).include?(input)
+    when (1..Character.all.length).include?(input.to_i)
       character = Character.all[input.to_i - 1]
     when "main menu"
       main_menu
@@ -58,10 +55,6 @@ class VentureVerse::CLI
     end
   end
 
-  def get_input
-    input = gets.strip.downcase
-  end
-
   def invalid_character
     puts "Who dat?  Please enter a valid command."
     character_menu
@@ -76,19 +69,3 @@ class VentureVerse::CLI
     puts "Ta-ta.  And Go Team Venture!"
   end
 end
-
-
-  # def list_character_names
-  #   puts "Enter the number of a character to get more info."
-  #   list_characters
-  #   input = gets.strip.to_i
-  #   if (1..Character.all.length).include?(input)
-  #     character = Character.all[input - 1]
-  #     character_details(character)
-  #   else
-  #     invalid_character
-  #     list_characters
-  #   end
-  # end
-
-# end
