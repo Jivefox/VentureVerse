@@ -71,6 +71,7 @@ class Scraper
 
     objects = page.css('ul li i')
     episodes = objects.map {|object| object.text}
-    episodes.each.with_index(1) {|episode, i| puts "#{i}. #{episode}"}.uniq
+    episodes.pop(2)
+    episodes.each.with_index(1) {|episode, i| puts "#{i}. #{episode}"}
   end
 end

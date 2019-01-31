@@ -17,6 +17,6 @@ class Episode
   end
 
   def self.list_episodes
-    self.all.each.with_index(1) {|episode| puts "#{i}. #{episode[:name]}"}
+    self.all.each.with_index(1) {|episode| puts "#{i}. #{episode[:name]}"}[-2]
   end
 end

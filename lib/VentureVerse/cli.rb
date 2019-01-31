@@ -15,8 +15,6 @@ class VentureVerse::CLI
         episode_menu
       when "voice actor"
         list_voice_actors
-      when "exit"
-        adios
       else
         puts "Spanikopita!!  Sorry. If you'd like a valid response, please enter a valid command."
     end
@@ -31,10 +29,9 @@ class VentureVerse::CLI
     case input
     when (1..Character.all.length).include?(input.to_i)
       character = Character.all[input.to_i - 1]
+      character
     when "main menu"
       main_menu
-    when "exit"
-      adios
     else
       invalid_character
     end
