@@ -20,6 +20,22 @@ class Scraper
     end
   end
 
+    def self.scrape_character_directory_2
+      html = open("https://venturebrothers.fandom.com/Category:Characters?from=Manotaur")
+      page = Nokogiri::HTML(html)
+
+      characters = page.css("li.category-page__member a")
+
+      characters.map do |nodeset|
+        character_hash = {}
+        unless nodeset.text.include?('Category')
+          character_hash[:name] = nodeset.text
+          character_hash[:url] = nodeset.attr('href')
+          Character.all << character_hash
+        end
+      end
+    end
+
 
 
       # characters = page.css("li.category-page__member a")
