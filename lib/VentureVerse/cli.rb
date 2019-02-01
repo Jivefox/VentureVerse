@@ -28,37 +28,48 @@ class VentureVerse::CLI
     Scraper.scrape_character_directory_2
     Character.list_characters
     puts "Enter the number of the character with whom you would like to better familiarize yourself.  Type 'main menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
-    input = nil
-    while input != "exit"
-      input = gets.strip.downcase
-      case input
-      when (1..Character.all.length).include?(input.to_i)
-        character = Character.all[input.to_i - 1]
-        character_details(character)
-      when "main menu"
-        main_menu
-      else
-        invalid_character
-      end
+    input = gets.strip.downcase
+    character = Character.all[input.to_i - 1]
+    if character
+      Scraper.scrape_character_page(character)
+      character_details(character)
+    elsif "main menu"
+      main_menu
+    else
+      invalide_character
     end
+    # input = nil
+    # while input != "exit"
+    #   input = gets.strip.downcase
+    #   case input
+    #   when (1..Character.all.length).include?(input.to_i)
+    #     character = Character.all[input.to_i - 1]
+    #     character_details(character)
+    #   when "main menu"
+    #     main_menu
+    #   else
+    #     invalid_character
+    #   end
+
   end
 
   def episode_menu
     Scraper.list_episodes
     puts "Enter the number of the episode with which you'd like to better familiarize yourself.  Type 'main menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
-    input = nil
-    while input != "exit"
+    # input = nil
+    # while input != "exit"
       input = gets.strip.downcase
-      case input
-      when (1..Episode.all.length).include?(input)
-        episode = Episode.all[input.to_i - 1]
-        episode_details(episode)
-      when "main menu"
-        main_menu
-      else
-        invalid_episode
-      end
-    end
+    #   case input
+    #   when (1..Episode.all.length).include?(input)
+    #     episode = Episode.all[input.to_i - 1]
+    #     episode_details(episode)
+    #   when "main menu"
+    #     main_menu
+    #   else
+    #     invalid_episode
+    #   end
+    # end
+
   end
 
   def character_details(character)

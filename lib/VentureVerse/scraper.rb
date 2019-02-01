@@ -1,9 +1,9 @@
 class Scraper
 
-  CHARACTERS_URL = "https://venturebrothers.fandom.com/Category:Characters"
+  VENTURE_URL = "https://venturebrothers.fandom.com/"
 
   def self.scrape_character_directory
-    html = open(CHARACTERS_URL)
+    html = open("https://venturebrothers.fandom.com/Category:Characters")
     page = Nokogiri::HTML(html)
 
     characters = page.css("li.category-page__member a")
@@ -28,21 +28,21 @@ class Scraper
           name = nodeset.text
           url = nodeset.attr('href')
           character = Character.new(name, url)
+          binding.pry
         end
       end
     end
 
 
-  # def self.scrape_character_page(character)
-  #   html = open(CHARACTERS_URL + character.url)
-  #   page = Nokogiri::HTML(html)
-  #   character = {}
-  #   urls = page.css("li.category-page__member a").map {|element| element.attr('href') unless element.text.include?('Category')}.compact
-  #   character[:episodes] = character[:url].css('ul li i').map {|object| object.text}
-  #   character[:first_appearance] =  character[:url].css('tr td a').map {|object| object.attr('title')}[2]
-  #   character[:voice_actor] = character[:url].css('tr td a').map {|object| object.attr('title')}[3].gsub("wikipedia:", "")
-  #   character
-  # end
+  def self.scrape_character_page(character)
+    html = open(VENTURE_URL + character.url)
+    page = Nokogiri::HTML(html)
+    character_details = {}
+    character_details[:episodes] = character.url.css('ul li i').map {|object| object.text}
+    character_details[:first_appearance] =  character.url.css('tr td a').map {|object| object.attr('title')}[2]
+    character_details[:voice_actor] = character.url.css('tr td a').map {|object| object.attr('title')}[3].gsub("wikipedia:", "")
+    character_details
+  end
 
   def self.list_episodes
     html = open("https://venturebrothers.fandom.com/wiki/Episodes#Songs")
