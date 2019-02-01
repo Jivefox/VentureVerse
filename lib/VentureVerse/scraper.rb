@@ -28,7 +28,6 @@ class Scraper
           name = nodeset.text
           url = nodeset.attr('href')
           character = Character.new(name, url)
-          binding.pry
         end
       end
     end
@@ -38,8 +37,9 @@ class Scraper
     html = open(VENTURE_URL + character.name.gsub(" ","_"))
     page = Nokogiri::HTML(html)
     character_details = {}
-    character_details[:episodes] = page.css('ul li i').map {|object| object.text}
     character_details[:first_appearance] =  page.css('tr td a').map {|object| object.attr('title')}[2]
+    character_details[:episodes] = page.css('ul li i').map {|object| object.text} << character_details[:first_appearance]
+    character_details[:episodes].uniq
     character_details[:voice_actor] = page.css('tr td a').map {|object| object.attr('title')}[3].gsub("wikipedia:", "")
     character_details
   end
