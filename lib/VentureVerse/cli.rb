@@ -16,17 +16,10 @@ class VentureVerse::CLI
       when "episode"
         episode_menu
       else
-        puts "Spanikopita!!  Sorry. If you'd like a valid response, please enter a valid command."
+        invalid
       end
     end
   end
-
-  def secondary_character_menu
-    puts "Wanna go again? Have a little look-see at someone else? Y/N?."
-    input = gets.strip.downcase
-    input == "y" ? character_menu : main_menu
-  end
-
 
   def character_menu
     Scraper.scrape_character_directory
@@ -45,6 +38,19 @@ class VentureVerse::CLI
     end
   end
 
+  def secondary_character_menu
+    puts "Wanna go again? Have a little look-see at someone else? Y/N?."
+    input = gets.strip.downcase
+      if input == "y"
+        character_menu
+      elsif input == "n"
+        main_menu
+      else
+      puts "You only had two options.  Somehow you managed to blow it.  Please enter a valid command."
+      secondary_character_menu
+    end
+  end
+
   def episode_menu
     Scraper.scrape_episode_directory
     Episode.list_episodes
@@ -59,6 +65,18 @@ class VentureVerse::CLI
         invalid_episode
       end
     end
+
+  def secondary_episode_menu
+    puts "Wanna go again? Have a little look-see at at different episode? Y/N?."
+    input = gets.strip.downcase
+      if input == "y"
+        character_menu
+      elsif input == "n"
+        main_menu
+      else
+      puts "You only had two options.  Somehow you managed to blow it.  Please enter a valid command."
+      secondary_episode_menu
+  end
 
   def episode_details(episode)
     episode_details = Scraper.scrape_episode_page(episode)
@@ -80,6 +98,11 @@ class VentureVerse::CLI
   def invalid_episode
     puts "Didn't see that one...  Please enter a valid command."
     episode_menu
+  end
+
+  def invalid
+    puts "Spanikopita!!  Sorry. If you'd like a valid response, please enter a valid command."
+    main_menu
   end
 
   def adios
