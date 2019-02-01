@@ -76,6 +76,7 @@ class VentureVerse::CLI
       else
       puts "You only had two options.  Somehow you managed to blow it.  Please enter a valid command."
       secondary_episode_menu
+    end
   end
 
   def episode_details(episode)
