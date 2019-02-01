@@ -41,7 +41,7 @@ class VentureVerse::CLI
   end
 
   def episode_menu
-    Scraper.scrape_episode_page
+    Scraper.scrape_episode_directory
     puts "Enter the number of the episode with which you'd like to better familiarize yourself.  Type 'main menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
       input = gets.strip.downcase
       episode = Episode.all[input.to_i - 1]
