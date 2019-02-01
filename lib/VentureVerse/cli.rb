@@ -33,7 +33,7 @@ class VentureVerse::CLI
     if character
       # Scraper.scrape_character_page(character)
       character_details(character)
-    elsif "main menu"
+    elsif input == "main menu"
       main_menu
     else
       invalid_character
@@ -49,7 +49,7 @@ class VentureVerse::CLI
       binding.pry
       if episode
         episode_details(episode)
-      elsif "main menu"
+      elsif input == "main menu"
         main_menu
       else
         invalid_episode
@@ -65,7 +65,7 @@ class VentureVerse::CLI
   def character_details(character)
     character_details = Scraper.scrape_character_page(character)
     puts "#{character.name} is voiced by #{character_details[:voice_actor]} and first appeared in the episode '#{character_details[:first_appearance]}.'"
-    puts "#{character.name} also appears in the following episode(s): #{character_details[:episodes].join(' ')}"
+    puts "#{character.name} also appears in the following episode(s): #{character_details[:episodes].join(', ')}"
   end
 
   def invalid_character

@@ -61,7 +61,7 @@ class Scraper
     html = open(VENTURE_URL + episode.name.gsub(" ", "_"))
     page = Nokogiri::HTML(html)
     episode_details = {}
-    episode_details[:air_date] =
+    episode_details[:air_date] = page.at('table tr:contains("Original air date")').text.strip.gsub("Original air date\n    \n","")
     episode_details[:season_index]
     episode_details
   end
