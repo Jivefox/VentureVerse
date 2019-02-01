@@ -6,22 +6,27 @@ class VentureVerse::CLI
   end
 
   def main_menu
-    puts "Would you like to explore the involuted universe of the Venture Bros. via character, episode or voice actor?"
     input = nil
     while input !=  "exit"
+      puts "Would you like to explore the involuted universe of the Venture Bros. via character or episode?"
       input = gets.strip.downcase
       case input
       when "character"
         character_menu
       when "episode"
         episode_menu
-      when "voice actor"
-        list_voice_actors
       else
         puts "Spanikopita!!  Sorry. If you'd like a valid response, please enter a valid command."
       end
     end
   end
+
+  def secondary_character_menu
+    puts "Wanna go again? Have a little look-see at someone else? Y/N?."
+    input = gets.strip.downcase
+    input == "y" ? character_menu : main_menu
+  end
+
 
   def character_menu
     Scraper.scrape_character_directory
@@ -31,8 +36,8 @@ class VentureVerse::CLI
     input = gets.strip.downcase
     character = Character.all[input.to_i - 1]
     if character
-      # Scraper.scrape_character_page(character)
       character_details(character)
+      secondary_character_menu
     elsif input == "main menu"
       main_menu
     else
@@ -46,7 +51,6 @@ class VentureVerse::CLI
     puts "Enter the number of the episode with which you'd like to better familiarize yourself.  Type 'main menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
       input = gets.strip.downcase
       episode = Episode.all[input.to_i - 1]
-      binding.pry
       if episode
         episode_details(episode)
       elsif input == "main menu"

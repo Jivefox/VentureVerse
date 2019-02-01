@@ -6,6 +6,5 @@ require_relative "./VentureVerse/version"
 require_relative './VentureVerse/cli'
 require_relative './VentureVerse/character'
 require_relative './VentureVerse/episode'
-require_relative './VentureVerse/voice_actor'
 require_relative './VentureVerse/version'
 require_relative './VentureVerse/scraper'
