@@ -35,12 +35,12 @@ class Scraper
 
 
   def self.scrape_character_page(character)
-    html = open(VENTURE_URL + character.url)
+    html = open(VENTURE_URL + character.name.gsub(" ","_"))
     page = Nokogiri::HTML(html)
     character_details = {}
-    character_details[:episodes] = character.url.css('ul li i').map {|object| object.text}
-    character_details[:first_appearance] =  character.url.css('tr td a').map {|object| object.attr('title')}[2]
-    character_details[:voice_actor] = character.url.css('tr td a').map {|object| object.attr('title')}[3].gsub("wikipedia:", "")
+    character_details[:episodes] = page.css('ul li i').map {|object| object.text}
+    character_details[:first_appearance] =  page.css('tr td a').map {|object| object.attr('title')}[2]
+    character_details[:voice_actor] = page.css('tr td a').map {|object| object.attr('title')}[3].gsub("wikipedia:", "")
     character_details
   end
 
