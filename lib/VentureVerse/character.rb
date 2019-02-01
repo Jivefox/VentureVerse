@@ -1,4 +1,3 @@
-require 'pry'
 
 class Character
 
@@ -25,6 +24,6 @@ class Character
   # end
 
   def self.list_characters
-    self.all.each.with_index(1) {|character, i| puts "#{i}. #{character[:name]}"}
+    self.all.each.with_index(1) {|character, i| puts "#{i}. #{character.name}"}
   end
 end

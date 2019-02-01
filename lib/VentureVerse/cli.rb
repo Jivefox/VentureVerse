@@ -7,6 +7,7 @@ class VentureVerse::CLI
 
   def main_menu
     puts "Would you like to explore the involuted universe of the Venture Bros. via character, episode or voice actor?"
+    input = nil
     while input !=  "exit"
       input = gets.strip.downcase
       case input
@@ -27,13 +28,13 @@ class VentureVerse::CLI
     Scraper.scrape_character_directory_2
     Character.list_characters
     puts "Enter the number of the character with whom you would like to better familiarize yourself.  Type 'main menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
+    input = nil
     while input != "exit"
-      input = gets.strip
-
+      input = gets.strip.downcase
       case input
       when (1..Character.all.length).include?(input.to_i)
         character = Character.all[input.to_i - 1]
-        character
+        character_details(character)
       when "main menu"
         main_menu
       else
@@ -45,18 +46,25 @@ class VentureVerse::CLI
   def episode_menu
     Scraper.list_episodes
     puts "Enter the number of the episode with which you'd like to better familiarize yourself.  Type 'main menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
+    input = nil
     while input != "exit"
-      input = gets.strip
-
-      if (1..Episode.all.length).include?(input)
+      input = gets.strip.downcase
+      case input
+      when (1..Episode.all.length).include?(input)
         episode = Episode.all[input.to_i - 1]
-        Scraper.scrape_episode(episode)
-      elsif "main menu"
+        episode_details(episode)
+      when "main menu"
         main_menu
       else
         invalid_episode
       end
     end
+  end
+
+  def character_details(character)
+    # Scraper.scrape_character_page
+    puts "Character details"
+
   end
 
   def invalid_character
