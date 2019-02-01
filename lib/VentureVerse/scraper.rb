@@ -44,13 +44,17 @@ class Scraper
     character_details
   end
 
-  def self.list_episodes
+  def self.scrape_episodes
     html = open("https://venturebrothers.fandom.com/wiki/Episodes#Songs")
     page = Nokogiri::HTML(html)
 
-    objects = page.css('ul li i')
-    episodes = objects.map {|object| object.text}
-    episodes.pop(2)
-    episodes.each.with_index(1) {|episode, i| puts "#{i}. #{episode}"}
+    episodes = page.css('ul li i')
+
+    episodes.map do |object|
+      name = object.text
+      episode = Episode.new(name)
+      # episodes.pop(2)
+    end
+    binding.pry
   end
 end

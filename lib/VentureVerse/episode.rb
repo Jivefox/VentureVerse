@@ -4,12 +4,14 @@ class Episode
 
   @@all = []
 
-  def initialize
+  def initialize(name)
+    @name = name
+    # @url = url
     @@all << self
   end
 
   def self.all
-    @@all
+    @@all.pop(2)
   end
 
   def self.new_from_vb
@@ -17,6 +19,7 @@ class Episode
   end
 
   def self.list_episodes
-    self.all.each.with_index(1) {|episode| puts "#{i}. #{episode[:name]}"}[-2]
+    # self.all.each.with_index(1) {|episode| puts "#{i}. #{episode[:name]}"}
+    self.all.each.with_index(1) {|episode, i| puts "#{i}. #{episode}"}
   end
 end
