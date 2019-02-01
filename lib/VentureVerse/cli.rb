@@ -31,27 +31,13 @@ class VentureVerse::CLI
     input = gets.strip.downcase
     character = Character.all[input.to_i - 1]
     if character
-      Scraper.scrape_character_page(character)
-      binding.pry
-      # character_details(character)
+      # Scraper.scrape_character_page(character)
+      character_details(character)
     elsif "main menu"
       main_menu
     else
       invalid_character
     end
-    # input = nil
-    # while input != "exit"
-    #   input = gets.strip.downcase
-    #   case input
-    #   when (1..Character.all.length).include?(input.to_i)
-    #     character = Character.all[input.to_i - 1]
-    #     character_details(character)
-    #   when "main menu"
-    #     main_menu
-    #   else
-    #     invalid_character
-    #   end
-
   end
 
   def episode_menu
@@ -75,8 +61,8 @@ class VentureVerse::CLI
 
   def character_details(character)
     Scraper.scrape_character_page(character)
-    puts "#{character.name} is voiced by #{character[:voice_acter]} and first appeared in the episode #{character[:first_appearance]}."
-    puts "#{character.name} also appears in the following episodes: #{character[:episodes]}"
+    puts "#{character.name} is voiced by #{character_details[:voice_acter]} and first appeared in the episode #{character_details[:first_appearance]}."
+    puts "#{character.name} also appears in the following episodes: #{character_details[:episodes]}"
   end
 
   def invalid_character
