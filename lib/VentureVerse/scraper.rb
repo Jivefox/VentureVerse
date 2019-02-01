@@ -53,12 +53,11 @@ class Scraper
     episodes.map do |object|
       name = object.text
       episode = Episode.new(name)
-      # episodes.pop(2)
     end
   end
 
   def self.scrape_episode_page(episode)
-    html = open(VENTURE_URL + episode.name.gsub(" ", "_"))
+    html = open(VENTURE_URL + episode.name.gsub(" ","_"))
     page = Nokogiri::HTML(html)
     episode_details = {}
     episode_details[:air_date] = page.at('table tr:contains("Original air date")').text.strip.gsub("Original air date\n    \n","")

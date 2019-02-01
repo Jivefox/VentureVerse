@@ -58,7 +58,7 @@ class VentureVerse::CLI
 
   def episode_details(episode)
     episode_details = Scraper.scrape_episode_page(episode)
-    puts "#{episode.name} aired on (air_date)"
+    puts "#{episode.name} aired on #{episode_details[:air_date]}."
     puts "It was the (nth) episode of the (nth) season"
   end
 
