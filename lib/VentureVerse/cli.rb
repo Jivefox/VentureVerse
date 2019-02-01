@@ -41,10 +41,11 @@ class VentureVerse::CLI
   end
 
   def episode_menu
-    Scraper.scrape_episodes
+    Scraper.scrape_episode_page
     puts "Enter the number of the episode with which you'd like to better familiarize yourself.  Type 'main menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
       input = gets.strip.downcase
       episode = Episode.all[input.to_i - 1]
+      binding.pry
       if episode
         episode_details(episode)
       elsif "main menu"
@@ -55,12 +56,12 @@ class VentureVerse::CLI
     end
 
   def episode_details(episode)
+    episode_details = Scraper.scrape_episode_page
 
   end
 
   def character_details(character)
     character_details = Scraper.scrape_character_page(character)
-    binding.pry
     puts "#{character.name} is voiced by #{character_details[:voice_actor]} and first appeared in the episode '#{character_details[:first_appearance]}.'"
     puts "#{character.name} also appears in the following episode(s): #{character_details[:episodes].join(' ')}"
   end

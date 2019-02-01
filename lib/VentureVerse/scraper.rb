@@ -44,7 +44,7 @@ class Scraper
     character_details
   end
 
-  def self.scrape_episodes
+  def self.scrape_episode_page
     html = open("https://venturebrothers.fandom.com/wiki/Episodes#Songs")
     page = Nokogiri::HTML(html)
 
@@ -55,6 +55,5 @@ class Scraper
       episode = Episode.new(name)
       # episodes.pop(2)
     end
-    binding.pry
   end
 end

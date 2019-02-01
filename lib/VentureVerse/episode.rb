@@ -12,10 +12,7 @@ class Episode
 
   def self.all
     @@all.pop(2)
-  end
-
-  def self.new_from_vb
-
+    @@all
   end
 
   def self.list_episodes
