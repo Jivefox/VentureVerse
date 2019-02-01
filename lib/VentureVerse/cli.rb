@@ -42,6 +42,7 @@ class VentureVerse::CLI
 
   def episode_menu
     Scraper.scrape_episode_directory
+    Episode.list_episodes
     puts "Enter the number of the episode with which you'd like to better familiarize yourself.  Type 'main menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
       input = gets.strip.downcase
       episode = Episode.all[input.to_i - 1]
@@ -56,8 +57,9 @@ class VentureVerse::CLI
     end
 
   def episode_details(episode)
-    episode_details = Scraper.scrape_episode_page
-
+    episode_details = Scraper.scrape_episode_page(episode)
+    puts "#{episode.name} aired on (air_date)"
+    puts "It was the (nth) episode of the (nth) season"
   end
 
   def character_details(character)

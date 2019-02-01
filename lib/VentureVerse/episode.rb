@@ -11,11 +11,10 @@ class Episode
   end
 
   def self.all
-    @@all.pop(2)
     @@all
   end
 
   def self.list_episodes
-    self.all.each.with_index(1) {|episode, i| puts "#{i}. #{episode}"}
+    self.all.each.with_index(1) {|episode, i| puts "#{i}. #{episode.name}"}
   end
 end

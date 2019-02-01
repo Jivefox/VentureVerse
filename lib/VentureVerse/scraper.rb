@@ -57,7 +57,12 @@ class Scraper
     end
   end
 
-  def self.scrape_episode_page
-
+  def self.scrape_episode_page(episode)
+    html = open(VENTURE_URL + episode.name.gsub(" ", "_"))
+    page = Nokogiri::HTML(html)
+    episode_details = {}
+    episode_details[:air_date] =
+    episode_details[:season_index]
+    episode_details
   end
 end
