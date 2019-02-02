@@ -1,37 +1,37 @@
 class VentureVerse::CLI
 
   def call
+    Scraper.scrape_character_directory
+    Scraper.scrape_character_directory_2
+    Scraper.scrape_episode_directory
+    puts "This is VentureVerse.  Use it to learn more about 'The Venture Bros.'"
     main_menu
-    adios
   end
 
   def main_menu
-    input = nil
-    while input !=  "exit"
-      puts "Would you like to explore the involuted universe of the Venture Bros. via character or episode?"
-      input = gets.strip.downcase
-      case input
-      when "character"
-        character_menu
-      when "episode"
-        episode_menu
-      else
-        invalid
-      end
+    puts "Would you like to explore the involuted universe of the Venture Bros. via character or episode?"
+    input = gets.strip.downcase
+
+    if input == "character"
+      character_menu
+    elsif input ==  "episode"
+      episode_menu
+    elsif input == “exit”
+      adios
+    else
+      invalid
     end
   end
 
   def character_menu
-    Scraper.scrape_character_directory
-    Scraper.scrape_character_directory_2
     Character.list_characters
-    puts "Enter the number of the character with whom you would like to better familiarize yourself.  Type 'main menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
+    puts "Enter the number of the character with whom you would like to better familiarize yourself.  Type 'menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
     input = gets.strip.downcase
     character = Character.all[input.to_i - 1]
     if character
       character_details(character)
       secondary_character_menu
-    elsif input == "main menu"
+    elsif input == "menu"
       main_menu
     else
       invalid_character
@@ -52,14 +52,14 @@ class VentureVerse::CLI
   end
 
   def episode_menu
-    Scraper.scrape_episode_directory
     Episode.list_episodes
-    puts "Enter the number of the episode with which you'd like to better familiarize yourself.  Type 'main menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
+    puts "Enter the number of the episode with which you'd like to better familiarize yourself.  Type 'menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
       input = gets.strip.downcase
       episode = Episode.all[input.to_i - 1]
       if episode
         episode_details(episode)
-      elsif input == "main menu"
+        secondary_episode_menu
+      elsif input == "menu"
         main_menu
       else
         invalid_episode
@@ -70,7 +70,7 @@ class VentureVerse::CLI
     puts "Wanna go again? Have a little look-see at at different episode? Y/N?."
     input = gets.strip.downcase
       if input == "y"
-        character_menu
+        episode_menu
       elsif input == "n"
         main_menu
       else
