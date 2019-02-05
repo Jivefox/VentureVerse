@@ -16,7 +16,7 @@ class VentureVerse::CLI
       character_menu
     elsif input ==  "episode"
       episode_menu
-    elsif input == “exit”
+    elsif input == 'exit'
       adios
     else
       invalid
@@ -27,12 +27,14 @@ class VentureVerse::CLI
     Character.list_characters
     puts "Enter the number of the character with whom you would like to better familiarize yourself.  Type 'menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
     input = gets.strip.downcase
-    character = Character.all[input.to_i - 1]
-    if character
-      character_details(character)
-      secondary_character_menu
-    elsif input == "menu"
+    # character = Character.all[input.to_i - 1]
+    if input == "menu"
       main_menu
+    elsif input == "exit"
+      adios
+    # elsif character
+    #   character_details(character)
+    #   secondary_character_menu
     else
       invalid_character
     end
