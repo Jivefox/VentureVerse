@@ -27,21 +27,21 @@ class VentureVerse::CLI
     Character.list_characters
     puts "Enter the number of the character with whom you would like to better familiarize yourself.  Type 'menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
     input = gets.strip.downcase
-    # character = Character.all[input.to_i - 1]
+    character = Character.all[input.to_i - 1] when (0..Character.all.length).include?(input)
     if input == "menu"
       main_menu
     elsif input == "exit"
       adios
-    # elsif character
-    #   character_details(character)
-    #   secondary_character_menu
+    elsif character
+      character_details(character)
+      secondary_character_menu
     else
       invalid_character
     end
   end
 
   def secondary_character_menu
-    puts "Wanna go again? Have a little look-see at someone else? Y/N?."
+    puts "Wanna go again? Have a little look-see at someone else[y/n]?."
     input = gets.strip.downcase
       if input == "y"
         character_menu
@@ -69,7 +69,7 @@ class VentureVerse::CLI
     end
 
   def secondary_episode_menu
-    puts "Wanna go again? Have a little look-see at at different episode? Y/N?."
+    puts "Wanna go again? Have a little look-see at at different episode[y/n]?."
     input = gets.strip.downcase
       if input == "y"
         episode_menu
