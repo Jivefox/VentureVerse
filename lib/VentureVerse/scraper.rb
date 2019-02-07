@@ -38,10 +38,18 @@ class Scraper
     page = Nokogiri::HTML(html)
     character_details = {}
     character_details[:first_appearance] =  page.css('tr td a').map {|object| object.attr('title')}[2]
-    character_details[:episodes] = page.css('ul li i').map {|object| object.text} << character_details[:first_appearance]
-    # character_details[:episodes]
+    character_details[:episodes] = page.css('ul li i').map {|object| object.text}
     character_details[:voice_actor] = page.css('tr td a').map {|object| object.attr('title')}[3].gsub("wikipedia:", "")
     character_details
+    # table = page.css('table.infobox')
+    # rows = table.css('tr')
+    # column_names = rows.shift.css('th').map(&:text)
+    # text_all_rows = rows.map do |row|
+    #   row_name = row.css('th').text
+    #   row_values = row.css('td').map(&:text)
+    #   row_values.flatten
+    #   binding.pry
+    # end
   end
 
   def self.scrape_episode_directory

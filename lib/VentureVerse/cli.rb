@@ -28,14 +28,12 @@ class VentureVerse::CLI
     puts "\nEnter the number of the character with whom you would like to better familiarize yourself.  Type 'menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
     input = gets.strip.downcase
     # binding.pry
-    # character = Character.all[input.to_i - 1] while input > 0 && input < Character.all.length
     if input == "menu"
       main_menu
     elsif input == "exit"
       adios
-    elsif (1..Character.all.length).include?(input.to_i)
+    elsif input.match(/\d/) && input.to_i > 0 && input.to_i <= Character.all.length
       character = Character.all[input.to_i - 1]
-    # elsif character
       character_details(character)
       secondary_character_menu
     else
