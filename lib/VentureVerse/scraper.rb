@@ -39,7 +39,7 @@ class Scraper
     character_details = {}
     character_details[:first_appearance] =  page.css('tr td a').map {|object| object.attr('title')}[2]
     character_details[:episodes] = page.css('ul li i').map {|object| object.text} << character_details[:first_appearance]
-    character_details[:episodes]
+    # character_details[:episodes]
     character_details[:voice_actor] = page.css('tr td a').map {|object| object.attr('title')}[3].gsub("wikipedia:", "")
     character_details
   end
