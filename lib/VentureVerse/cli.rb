@@ -58,12 +58,17 @@ class VentureVerse::CLI
     Episode.list_episodes
     puts "\nEnter the number of the episode with which you'd like to better familiarize yourself.  Type 'menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
       input = gets.strip.downcase
-      episode = Episode.all[input.to_i - 1]
-      if episode
+      # if episode
+      #   episode_details(episode)
+      #   secondary_episode_menu
+      if input == "menu"
+        main_menu
+      elsif input == "exit"
+          adios
+      elsif input.match(/\d/) && input.to_i > 0 && input.to_i <= Episode.all.length
+        episode = Episode.all[input.to_i - 1]
         episode_details(episode)
         secondary_episode_menu
-      elsif input == "menu"
-        main_menu
       else
         invalid_episode
       end
@@ -96,16 +101,18 @@ class VentureVerse::CLI
 
   def invalid_character
     puts "\nWho dat?  Please enter a valid command."
+    puts "\n"
     character_menu
   end
 
   def invalid_episode
+    puts "\n"
     puts "\nDidn't see that one...  Please enter a valid command."
     episode_menu
   end
 
   def invalid
-    puts "\nSpanikopita!!  Sorry. If you'd like a valid response, please enter a valid command."
+    puts "\nSpanakopita!!  Sorry. If you'd like a valid response, please enter a valid command."
     main_menu
   end
 
