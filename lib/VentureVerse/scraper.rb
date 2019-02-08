@@ -37,10 +37,19 @@ class Scraper
     html = open(VENTURE_URL + character.name.gsub(" ","_"))
     page = Nokogiri::HTML(html)
     character_details = {}
+    page.css('table.infobox tr')[4..-1].detect do |nodeset|
+      nodeset.children.find do |node|
+        character_details[:voice_actor] = nodeset.children.last.text.strip if node.text.include?("Voiced by")
+      end
+    end
     character_details[:first_appearance] =  page.css('tr td a').map {|object| object.attr('title')}[2]
     character_details[:episodes] = page.css('ul li i').map {|object| object.text}
-    character_details[:voice_actor] = page.css('tr td a').map {|object| object.attr('title')}[3].gsub("wikipedia:", "")
     character_details
+  end
+    # character_details[:first_appearance] =  page.css('tr td a').map {|object| object.attr('title')}[2]
+    # character_details[:episodes] = page.css('ul li i').map {|object| object.text}
+    # character_details[:voice_actor] = page.css('tr td a').map {|object| object.attr('title')}[3].gsub("wikipedia:", "")
+    # character_details
     # table = page.css('table.infobox')
     # rows = table.css('tr')
     # column_names = rows.shift.css('th').map(&:text)
@@ -50,7 +59,7 @@ class Scraper
     #   row_values.flatten
     #   binding.pry
     # end
-  end
+
 
   def self.scrape_episode_directory
     html = open("https://venturebrothers.fandom.com/wiki/Episodes#Songs")

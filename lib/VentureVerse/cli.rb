@@ -96,7 +96,7 @@ class VentureVerse::CLI
   def character_details(character)
     character_details = Scraper.scrape_character_page(character)
     puts "\n#{character.name} is voiced by #{character_details[:voice_actor]} and first appeared in the episode '#{character_details[:first_appearance]}.'"
-    puts "#{character.name} also appears in the following episode(s): #{character_details[:episodes].join(', ')}"
+    puts "\n#{character.name} also appears in the following episode(s): #{character_details[:episodes].join(', ')}"
   end
 
   def invalid_character
