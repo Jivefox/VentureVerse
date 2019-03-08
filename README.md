@@ -1,8 +1,6 @@
 # VentureVerse
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/VentureVerse`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This Ruby Gem needlessly scrapes a fan site of the adult animated televsion show The Venture Bros. and returns some very cursory information for provided episodes and the characters that inhabit them!  Information is scraped from the fansite venturebrothers.fandom.com.  
 
 ## Installation
 
@@ -22,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+After installation, simply run ./vin/VentureVerse from the command line and have what little possible fun you can have peeking around a truncated inventory of Venture Bros. trivia!
 
 ## Development
 
