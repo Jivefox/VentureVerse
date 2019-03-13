@@ -63,16 +63,22 @@ class Scraper
     end
 
     def self.scrape_episode_page(episode)
-      # html = open(VENTURE_URL + episode.name.gsub(" ","_"))
-      html = open(VENTURE_URL + episode.url)
-      page = Nokogiri::HTML(html)
-      episode_details = {}
-      binding.pry
-      if page.at('table tr:contains("Original air date")') == nil
-        puts "The original air date for this episode has not been published on the site "
-      episode_details[:air_date] = page.at('table tr:contains("Original air date")').text.strip.gsub("Original air date\n    \n","")
-      unless page.at('table tr:contains("Original air date")') == nil
-      episode_details
-      binding.pry
-    end
+        html = open(VENTURE_URL + episode.url)
+        page = Nokogiri::HTML(html)
+        episode_details = {}
+          if page.at('table tr:contains("Original air date")') == nil
+            puts <<-HEREDOC
+
+            I'm sorry, an original air date has not been published on the website from which I am scraping to bring you this information.
+
+            Why?
+
+            Great question.  For whatever reason the creators of this fanpage change formatting as often as they change underwear and it is perplexing.
+
+            HEREDOC
+          else
+            episode_details[:air_date] = page.at('table tr:contains("Original air date")').text.strip.gsub("Original air date\n    \n","")
+            episode_details
+        end
+      end
     end
