@@ -27,7 +27,7 @@ class VentureVerse::CLI
     Character.list_characters
     puts "\nEnter the number of the character with whom you would like to better familiarize yourself.  Type 'menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
     input = gets.strip.downcase
-    # binding.pry
+
     if input == "menu"
       main_menu
     elsif input == "exit"
@@ -58,9 +58,7 @@ class VentureVerse::CLI
     Episode.list_episodes
     puts "\nEnter the number of the episode with which you'd like to better familiarize yourself.  Type 'menu' to return to main menu.  Type 'exit' if you want to, you know, exit."
       input = gets.strip.downcase
-      # if episode
-      #   episode_details(episode)
-      #   secondary_episode_menu
+
       if input == "menu"
         main_menu
       elsif input == "exit"
